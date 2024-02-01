@@ -1,0 +1,39 @@
+'''
+=================================================
+Milestone 3
+
+Nama  : Nakia Melvana
+Batch : FTDS-026-RMT
+
+This program is designed to insert CSV raw data to PostgreSQL using TCL, DDL, and DML Syntax.
+=================================================
+'''
+Dataset URL: https://www.kaggle.com/datasets/arnavsmayan/netflix-userbase-dataset/data
+
+-- SQL Syntax
+BEGIN;
+
+CREATE TABLE table_m3(
+	"User ID" serial PRIMARY KEY,
+	"Subscription Type" VARCHAR(20) NOT NULL, 
+	"Monthly Revenue" INT, 
+	"Join Date" DATE NOT NULL, 
+	"Last Payment Date" DATE NOT NULL, 
+	"Country" VARCHAR(20) NOT NULL, 
+	"Age" INT , 
+	"Gender" VARCHAR(20) NOT NULL, 
+	"Device" VARCHAR(20)NOT NULL,
+	"Plan Duration" VARCHAR(20)	NOT NULL
+);
+
+SET datestyle TO 'DMY';
+
+-- input data  dari csv ke postgres
+COPY table_m3("User ID","Subscription Type",
+			  "Monthly Revenue","Join Date","Last Payment Date",
+			  "Country","Age","Gender","Device","Plan Duration")
+FROM '/tmp/P2M3_Nakia_Melvana_data_raw.csv'
+DELIMITER ','
+CSV HEADER;
+
+COMMIT;
